@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ksitiz P. Subedi — Author</title>
+  <meta name="description" content="Ksitiz P. Subedi is a teenage author from Kathmandu, Nepal, who published three debut books across three genres — memoir, fairy tale, and high fantasy — at the age of thirteen."/>
+
+  <!-- Open Graph (WhatsApp / Facebook previews) -->
+  <meta property="og:title"       content="Ksitiz P. Subedi — Author"/>
+  <meta property="og:description" content="Three debut books. Three entirely different worlds. All published at the age of thirteen. Available in Kathmandu, Nepal."/>
+  <meta property="og:image"       content="SchoolBoy.jpg"/>
+  <meta property="og:type"        content="website"/>
+
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* ── HOME HERO ── */
+    .home-hero {
+      background: linear-gradient(135deg, var(--dark) 0%, var(--dark2) 55%, #4a3a26 100%);
+      padding: 6rem 2.5rem 5rem;
+      min-height: auto;
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .home-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a96e' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .home-hero-inner { max-width: 640px; position: relative; z-index: 1; }
+    .home-eyebrow { font-size: 0.74rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .home-title { font-family: 'Playfair Display', serif; font-size: 3.4rem; color: #e8dcc8; line-height: 1.12; margin-bottom: 1.1rem; }
+    .home-title em { font-style: italic; color: var(--gold); }
+    .home-sub { color: var(--muted); font-size: 1rem; line-height: 1.8; margin-bottom: 1.25rem; max-width: 480px; }
+    .home-hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+
+    /* ── BOOKS STRIP ── */
+    .books-strip {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0; border-top: 3px solid var(--gold);
+    }
+    .strip-book {
+      padding: 2rem 1.8rem; border-right: 1px solid var(--border);
+      background: #fff; cursor: pointer; transition: background 0.2s;
+      text-decoration: none; color: inherit; display: block;
+    }
+    .strip-book:last-child { border-right: none; }
+    .strip-book:hover { background: var(--cream2); }
+    .strip-genre { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+    .strip-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 0.4rem; line-height: 1.3; }
+    .strip-arrow { font-size: 0.8rem; color: var(--text-mid); margin-top: 0.75rem; }
+
+    /* ── QUOTE BAND ── */
+    .quote-band { background: var(--dark); padding: 10px; text-align: center; }
+    .quote-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.5rem; color: #e8dcc8; max-width: 680px; margin: 0 auto 1rem; line-height: 1.55; }
+    .quote-attr { font-size: 0.78rem; color: var(--gold); letter-spacing: 0.12em; text-transform: uppercase; }
+
+    /* ── ABOUT TEASER ── */
+    .about-teaser { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--border); }
+
+    .teaser-photo-col {
+      background: var(--dark2);
+      min-height: auto;
+      display: flex; align-items: center; justify-content: center;
+      padding: 10px;
+    }
+    .teaser-photo-frame {
+      position: relative;
+      width: 100%; max-width: 100%;
+    }
+    .teaser-photo-frame img {
+      display: block; width: 100%; height: auto;
+      object-fit: cover;
+      border: 12px solid var(--gold);
+      position: relative; z-index: 2;
+    }
+    /* offset shadow-box behind the photo */
+    .teaser-photo-border {
+      position: absolute;
+      top: 0; left: 0;
+      right: 0; bottom: 0;
+      border: none;
+      z-index: 1;
+    }
+
+    .teaser-text { padding: 10px; display: flex; flex-direction: column; justify-content: center; }
+    .teaser-text .section-label { margin-bottom: 0.4rem; }
+    .teaser-text h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 1rem; line-height: 1.2; }
+    .teaser-text p { font-size: 0.93rem; color: var(--text-mid); line-height: 1.8; margin-bottom: 1.5rem; }
+
+    /* ── REVIEWS BAND ── */
+    .reviews-band { background: var(--cream2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 10px; }
+    .reviews-band .section-label { margin-bottom: 0.5rem; }
+    .reviews-band h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 2rem; }
+    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+    .review-card { background: #fff; border: 1px solid var(--border); border-left: 3px solid var(--gold); padding: 1.5rem; }
+    .review-text { font-style: italic; font-size: 0.9rem; color: var(--text-mid); line-height: 1.75; margin-bottom: 0.75rem; }
+    .review-author { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); font-weight: 700; }
+
+    @media (max-width: 768px) {
+      .home-title { font-size: 2.4rem; }
+      .about-teaser { grid-template-columns: 1fr; }
+      .teaser-photo-col { min-height: auto; padding: 10px; }
+      .teaser-photo-frame { max-width: 100%; }
+    }
+    @media (max-width: 500px) {
+      .home-hero { padding: 4rem 1.2rem 3rem; }
+      .home-title { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">Ksitiz P. Subedi</a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="books.html">Books</a></li>
+    <li><a href="bundles.html">Bundles</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile" id="nav-mobile">
+  <ul>
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="books.html">Books</a></li>
+    <li><a href="bundles.html">Bundles</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section class="home-hero">
+  <div class="home-hero-inner">
+    <p class="home-eyebrow">Author &middot; Debut Collection &middot; 2025</p>
+    <h1 class="home-title">Stories that <em>linger</em><br>long after the last page</h1>
+    <p class="home-sub">Three debut books. Three entirely different worlds. All written and published at the age of thirteen.</p>
+    <div class="avail-badge">
+      <span class="avail-dot"></span>
+      Available in Kathmandu, Nepal
+    </div>
+    <div class="home-hero-btns">
+      <a href="books.html" class="btn-primary">Explore the Books</a>
+      <a href="bundles.html" class="btn-dark">View Bundle Deals</a>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKS STRIP -->
+<div class="books-strip">
+  <a class="strip-book" href="books.html">
+    <p class="strip-genre">Memoir / Personal</p>
+    <h3 class="strip-title">A School Boy's Writing</h3>
+    <p class="strip-arrow">Read more →</p>
+  </a>
+  <a class="strip-book" href="books.html">
+    <p class="strip-genre">Fractured Fairy Tale</p>
+    <h3 class="strip-title">The Emperor's New Suit</h3>
+    <p class="strip-arrow">Read more →</p>
+  </a>
+  <a class="strip-book" href="books.html">
+    <p class="strip-genre">High Fantasy</p>
+    <h3 class="strip-title">Elnius: The Beginning</h3>
+    <p class="strip-arrow">Read more →</p>
+  </a>
+</div>
+
+<!-- QUOTE BAND -->
+<div class="quote-band">
+  <p class="quote-text">"A gripping children's fantasy adventure. Elnius journeys to power and self-confidence as he struggles to understand his darker side and weaknesses. Full of thrilling action and rich metaphor."</p>
+  <p class="quote-attr">— Joel Havenstone, author of Choice of Rebels</p>
+</div>
+
+<!-- REVIEWS BAND -->
+<div class="reviews-band">
+  <p class="section-label">What Readers Say</p>
+  <h2>Early Reactions</h2>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <p class="review-text">"A hilarious, offbeat twist on a classic children's story… I laughed out loud, and came away impressed by a young author stretching his storytelling skills in new directions."</p>
+      <p class="review-author">— Joel Havenstone, author of Choice of Rebels</p>
+    </div>
+    <div class="review-card">
+      <p class="review-text">"Full of thrilling action and rich metaphor. Elnius journeys to power and self-confidence as he struggles to understand his darker side and weaknesses."</p>
+      <p class="review-author">— Joel Havenstone, on Elnius: The Beginning</p>
+    </div>
+    <!-- ✏️ Add reader reviews here as you collect them -->
+  </div>
+</div>
+
+<!-- ABOUT TEASER -->
+<div class="about-teaser">
+  <div class="teaser-photo-col">
+    <div class="teaser-photo-frame">
+      <img src="KsitizPhoto.jpg" alt="Ksitiz P. Subedi"/>
+      <div class="teaser-photo-border"></div>
+    </div>
+  </div>
+  <div class="teaser-text">
+    <p class="section-label">The Author</p>
+    <h2>Ksitiz P. Subedi — writing worlds at thirteen</h2>
+    <p>A teenage author from Kathmandu who published three books in a single year, across three completely different genres. Blurbed by an international author. Just getting started.</p>
+    <a href="about.html" class="btn-dark">Read the Full Story</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a class="footer-logo" href="index.html">Ksitiz P. Subedi</a>
+  <ul class="footer-links">
+    <li><a href="books.html">Books</a></li>
+    <li><a href="bundles.html">Bundles</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <p class="footer-copy">&copy; 2025 Ksitiz P. Subedi &middot; Kathmandu, Nepal</p>
+</footer>
+
+<script src="nav.js"></script>
+</body>
+</html>

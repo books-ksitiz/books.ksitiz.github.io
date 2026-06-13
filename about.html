@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About — Ksitiz P. Subedi</title>
+  <meta name="description" content="Ksitiz P. Subedi is a teenage author from Kathmandu who published three books at the age of thirteen. Read his story."/>
+  <meta property="og:title"       content="About Ksitiz P. Subedi — Author"/>
+  <meta property="og:description" content="A teenage author from Kathmandu who published three books across three genres at the age of thirteen."/>
+  <meta property="og:image"       content="RarePhoto.jpg"/>
+  <meta property="og:type"        content="website"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .about-layout {
+      display: grid; grid-template-columns: 300px 1fr;
+      gap: 4rem; align-items: start;
+    }
+
+    /* ── SIDEBAR ── */
+    .author-photo-wrap {
+      width: 100%; aspect-ratio: 3 / 4;
+      background: var(--dark2); border: 3px solid var(--gold);
+      margin-bottom: 1.5rem; overflow: hidden;
+    }
+    .author-photo-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .sidebar-fact { margin-bottom: 1.25rem; }
+    .sidebar-fact-label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.2rem; }
+    .sidebar-fact-value { font-size: 0.9rem; color: var(--dark); font-weight: 700; }
+
+    /* Social links in sidebar */
+    .sidebar-social { margin-top: 1.5rem; }
+    .sidebar-social-label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
+    .sidebar-social-links { display: flex; flex-direction: column; gap: 0.5rem; }
+    .social-link {
+      display: flex; align-items: center; gap: 0.6rem;
+      text-decoration: none; color: var(--dark);
+      font-size: 0.85rem; padding: 0.5rem 0.75rem;
+      background: #fff; border: 1px solid var(--border);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .social-link:hover { border-color: var(--gold); background: var(--cream2); }
+    .social-link-icon { font-size: 1rem; }
+    .social-link-handle { font-weight: 700; font-size: 0.8rem; }
+    .social-link-platform { font-size: 0.7rem; color: var(--text-mid); }
+
+    /* ── MAIN CONTENT ── */
+    .about-content h2 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 1.25rem; line-height: 1.25; }
+    .about-content p { font-size: 0.95rem; color: var(--text-mid); line-height: 1.9; margin-bottom: 1.25rem; max-width: 600px; }
+    .about-content p strong { color: var(--dark); }
+
+    .blurb-card { background: var(--dark); padding: 1.75rem 2rem; margin: 2rem 0; border-left: 3px solid var(--gold); max-width: 600px; }
+    .blurb-quote { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.05rem; color: #e8dcc8; line-height: 1.65; margin-bottom: 0.75rem; }
+    .blurb-cite { font-size: 0.78rem; color: var(--gold); letter-spacing: 0.08em; }
+
+    .author-note { background: #faf7f2; border: 1px solid var(--border); border-left: 3px solid var(--gold); padding: 1.5rem 1.75rem; margin: 2rem 0; max-width: 600px; }
+    .author-note-label { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
+    .author-note-text { margin: 0; font-size: 0.95rem; line-height: 1.9; color: var(--text-mid); }
+
+    .books-mini { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+    .book-mini-card {
+      background: #fff; border: 1px solid var(--border);
+      padding: 1rem 1.25rem; flex: 1; min-width: 140px;
+      text-decoration: none; color: inherit;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .book-mini-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+    .book-mini-genre { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.3rem; }
+    .book-mini-title { font-family: 'Playfair Display', serif; font-size: 0.95rem; line-height: 1.3; }
+
+    @media (max-width: 860px) {
+      .about-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .author-photo-wrap { max-width: 260px; }
+      .sidebar-social-links { flex-direction: row; flex-wrap: wrap; }
+      .social-link { flex: 1; min-width: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">Ksitiz P. Subedi</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="books.html">Books</a></li>
+    <li><a href="bundles.html">Bundles</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile" id="nav-mobile">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="books.html">Books</a></li>
+    <li><a href="bundles.html">Bundles</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <p class="page-hero-label">The Author</p>
+  <h1 class="page-hero-title">Ksitiz P. <em>Subedi</em></h1>
+  <p class="page-hero-sub">Teenager. Author. Three published books and counting.</p>
+</div>
+
+<!-- ABOUT CONTENT -->
+<section class="section">
+  <div class="about-layout">
+
+    <!-- ═══ LEFT: SIDEBAR ═══ -->
+    <div class="about-sidebar">
+
+      <div class="author-photo-wrap">
+        <img src="RarePhoto.jpg" alt="Ksitiz P. Subedi"/>
+      </div>
+
+      <div class="sidebar-fact">
+        <p class="sidebar-fact-label">Location</p>
+        <p class="sidebar-fact-value">CG Villas, Kathmandu, Nepal</p>
+      </div>
+      <div class="sidebar-fact">
+        <p class="sidebar-fact-label">Age at Debut</p>
+        <p class="sidebar-fact-value">Thirteen</p>
+      </div>
+      <div class="sidebar-fact">
+        <p class="sidebar-fact-label">Debut Year</p>
+        <p class="sidebar-fact-value">2025</p>
+      </div>
+      <div class="sidebar-fact">
+        <p class="sidebar-fact-label">Books Published</p>
+        <p class="sidebar-fact-value">3</p>
+      </div>
+      <div class="sidebar-fact">
+        <p class="sidebar-fact-label">Genres</p>
+        <p class="sidebar-fact-value">Memoir &middot; Fairy Tale &middot; High Fantasy</p>
+      </div>
+      <div class="sidebar-fact">
+        <p class="sidebar-fact-label">Notable Endorsement</p>
+        <p class="sidebar-fact-value">Joel Havenstone, author of Choice of Rebels</p>
+      </div>
+
+      <!-- Social links -->
+      <div class="sidebar-social">
+        <p class="sidebar-social-label">Find Ksitiz Online</p>
+        <div class="sidebar-social-links">
+          <a class="social-link" href="https://www.instagram.com/books.ksitiz/" target="_blank" rel="noopener">
+            <span class="social-link-icon">📷</span>
+            <div>
+              <div class="social-link-handle">@books.ksitiz</div>
+              <div class="social-link-platform">Instagram</div>
+            </div>
+          </a>
+          <a class="social-link" href="https://www.tiktok.com/@ksitiz.books" target="_blank" rel="noopener">
+            <span class="social-link-icon">🎵</span>
+            <div>
+              <div class="social-link-handle">@ksitiz.books</div>
+              <div class="social-link-platform">TikTok</div>
+            </div>
+          </a>
+          <a class="social-link" href="https://www.facebook.com/profile.php?id=61578355209582" target="_blank" rel="noopener">
+            <span class="social-link-icon">📘</span>
+            <div>
+              <div class="social-link-handle">Facebook</div>
+              <div class="social-link-platform">Page</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div><!-- end .about-sidebar -->
+
+    <!-- ═══ RIGHT: MAIN TEXT ═══ -->
+    <div class="about-content">
+
+      <h2>Writing worlds at the age of thirteen</h2>
+
+      <p>
+        Ksitiz P. Subedi is a teenage author from CG Villas, Kathmandu, who accomplished something remarkable
+        in 2025: the publication of his <strong>first three books</strong> at the age of thirteen —
+        before most people his age had even thought about writing one.
+      </p>
+
+      <p>
+        Writing across three entirely different genres — memoir, fractured fairy tale, and high fantasy —
+        he has already caught the attention of the international literary world.
+        Two of his books carry blurbs from <strong>Joel Havenstone</strong>, acclaimed author of
+        <em>Choice of Rebels</em>, a recognition that speaks to the quality and ambition of his debut work.
+      </p>
+
+      <div class="blurb-card">
+        <p class="blurb-quote">"A hilarious, offbeat twist on a classic children's story. There's still an emperor tricked into wearing nonexistent clothes in public; but Ksitiz P. Subedi also throws in time-travelling twins, a dance test for the crown, a cunningly disguised android, and dozens of other unexpected quirks. I laughed out loud, and came away impressed by a young author stretching his storytelling skills in new directions."</p>
+        <p class="blurb-cite">— Joel Havenstone, author of Choice of Rebels</p>
+      </div>
+
+      <p>
+        Ksitiz is only just getting started — driven by a quiet but unwavering goal:
+        to become both a celebrated author and a genuinely good person.
+      </p>
+
+      <div class="author-note">
+        <p class="author-note-label">Author's Note</p>
+        <p class="author-note-text">
+          Outside of my writing, I spend my time exploring new ideas, reading widely,
+          and developing the worlds that will shape my future stories. My work is driven
+          by curiosity, imagination, and a desire to create something meaningful at a young age.
+          My next projects continue to expand the universe of <em>Elnius</em> and beyond.
+        </p>
+      </div>
+
+      <h2 style="margin-top:2.5rem; font-size:1.4rem;">The Books</h2>
+      <div class="books-mini">
+        <a class="book-mini-card" href="books.html">
+          <p class="book-mini-genre">Memoir</p>
+          <p class="book-mini-title">A School Boy's Writing &rarr;</p>
+        </a>
+        <a class="book-mini-card" href="books.html">
+          <p class="book-mini-genre">Fractured Fairy Tale</p>
+          <p class="book-mini-title">The Emperor's New Suit &rarr;</p>
+        </a>
+        <a class="book-mini-card" href="books.html">
+          <p class="book-mini-genre">High Fantasy</p>
+          <p class="book-mini-title">Elnius: The Beginning &rarr;</p>
+        </a>
+      </div>
+
+      <div style="margin-top:2rem;">
+        <a href="contact.html" class="btn-primary">Order a Book</a>
+      </div>
+
+    </div><!-- end .about-content -->
+
+  </div><!-- end .about-layout -->
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a class="footer-logo" href="index.html">Ksitiz P. Subedi</a>
+  <ul class="footer-links">
+    <li><a href="books.html">Books</a></li>
+    <li><a href="bundles.html">Bundles</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <p class="footer-copy">&copy; 2025 Ksitiz P. Subedi &middot; Kathmandu, Nepal</p>
+</footer>
+
+<script src="nav.js"></script>
+</body>
+</html>

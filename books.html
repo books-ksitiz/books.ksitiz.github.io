@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Books — Ksitiz P. Subedi</title>
+  <meta name="description" content="Browse the three debut books by Ksitiz P. Subedi — a memoir, a fractured fairy tale, and a high fantasy novel. Available in Kathmandu, Nepal."/>
+  <meta property="og:title"       content="Books — Ksitiz P. Subedi"/>
+  <meta property="og:description" content="Three debut books across three genres. Available in Kathmandu, Nepal."/>
+  <meta property="og:image"       content="Elnius.jpg"/>
+  <meta property="og:type"        content="website"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.5rem;
+    }
+    .book-card {
+      background: #fff; border: 1px solid var(--border);
+      overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;
+      display: flex; flex-direction: column;
+    }
+    .book-card:hover { transform: translateY(-5px); box-shadow: 0 14px 36px rgba(42,35,25,0.13); }
+
+    /* ── COVER: real image front, gradient back ── */
+    .book-cover-wrap {
+      aspect-ratio: 3 / 5; width: 100%;
+      perspective: 1000px; cursor: pointer; flex-shrink: 0;
+    }
+    .book-cover-inner {
+      position: relative; width: 100%; height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    }
+    .book-cover-wrap:hover .book-cover-inner { transform: rotateY(180deg); }
+
+    .cover-front, .cover-back {
+      position: absolute; inset: 0;
+      backface-visibility: hidden; -webkit-backface-visibility: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* FRONT = real cover photo */
+    .cover-front {
+      z-index: 2; overflow: hidden;
+      background: #1a1510;
+    }
+    .cover-front img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+
+    /* Hover hint on front */
+    .cover-hint {
+      position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+      background: rgba(0,0,0,0.6); color: rgba(201,169,110,0.9);
+      font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 3px 10px; white-space: nowrap;
+      opacity: 1; transition: opacity 0.3s; pointer-events: none; z-index: 4;
+    }
+    .book-cover-wrap:hover .cover-hint { opacity: 0; }
+
+    .cover-genre-badge {
+      position: absolute; top: 14px; right: 14px;
+      background: rgba(201,169,110,0.92); color: #2a2319;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 4px 10px; z-index: 3; pointer-events: none;
+    }
+
+    /* BACK = gradient + title info */
+    .cover-back { transform: rotateY(180deg); }
+    .cover-1 { background: linear-gradient(155deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); }
+    .cover-2 { background: linear-gradient(155deg, #2d1b2e 0%, #6b3050 50%, #b05070 100%); }
+    .cover-3 { background: linear-gradient(155deg, #0d2618 0%, #1a4a2a 50%, #2d7a3a 100%); }
+    .cover-inner { text-align: center; padding: 2rem; }
+    .cover-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: rgba(232,220,200,0.92); line-height: 1.35; margin-bottom: 0.5rem; }
+    .cover-line { width: 36px; height: 1px; background: rgba(201,169,110,0.55); margin: 0.65rem auto; }
+    .cover-author-name { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(201,169,110,0.65); }
+
+    /* ── BODY ── */
+    .book-body { padding: 1.5rem; border-top: 2px solid var(--gold); display: flex; flex-direction: column; flex-grow: 1; }
+    .book-genre-lbl { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
+    .book-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; line-height: 1.3; margin-bottom: 0.6rem; }
+    .book-blurb { font-style: italic; font-size: 0.82rem; color: var(--text-mid); border-left: 2px solid var(--gold); padding-left: 0.75rem; margin-bottom: 0.75rem; line-height: 1.6; }
+    .book-blurb cite { font-style: normal; font-size: 0.72rem; display: block; margin-top: 0.25rem; color: #aaa; }
+    .book-desc { font-size: 0.87rem; color: var(--text-mid); line-height: 1.78; margin-bottom: 1.25rem; flex-grow: 1; }
+
+    .book-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border); }
+    .book-price { font-size: 1.1rem; font-weight: 700; }
+    .btn-order {
+      background: var(--gold); color: var(--dark); border: none;
+      padding: 0.6rem 1.3rem; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer;
+      transition: background 0.2s; white-space: nowrap; text-decoration: none;
+      display: inline-block;
+    }
+    .btn-order:hover { background: var(--gold-light); }
+
+    .avail-note {
+      background: var(--cream2); border: 1px solid var(--border);
+      border-left: 3px solid var(--red-avail);
+      padding: 1rem 1.5rem; margin-bottom: 2.5rem;
+      font-size: 0.85rem; color: #b05a2a; line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">Ksitiz P. Subedi</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="books.html" class="active">Books</a></li>
+    <li><a href="bundles.html">Bundles</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile" id="nav-mobile">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="books.html" class="active">Books</a></li>
+    <li><a href="bundles.html">Bundles</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <p class="page-hero-label">The Collection</p>
+  <h1 class="page-hero-title">Three Books, <em>Three Worlds</em></h1>
+  <p class="page-hero-sub">Each one a debut. Each one completely different. All available in Kathmandu.</p>
+</div>
+
+<!-- BOOKS -->
+<section class="section">
+  <div class="avail-note">
+    <strong>Currently available in Kathmandu, Nepal only.</strong> Hit "Order Now" on any book to go straight to the order form — or <a href="contact.html" style="color:var(--gold);">contact Ksitiz directly</a>.
+  </div>
+
+  <div class="books-grid">
+
+    <!-- ══ BOOK 1: MEMOIR ══ -->
+    <div class="book-card">
+      <div class="book-cover-wrap">
+        <div class="book-cover-inner">
+          <!-- FRONT: real cover -->
+          <div class="cover-front">
+            <img src="SchoolBoy.jpg" alt="A School Boy's Writing cover"/>
+            <div class="cover-genre-badge">Memoir</div>
+            <div class="cover-hint">Hover for details</div>
+          </div>
+          <!-- BACK: gradient info -->
+          <div class="cover-back cover-1">
+            <div class="cover-inner">
+              <div class="cover-title">A School Boy's Writing</div>
+              <div class="cover-line"></div>
+              <div class="cover-author-name">Ksitiz P. Subedi</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="book-body">
+        <p class="book-genre-lbl">Memoir / Personal</p>
+        <h2 class="book-title">A School Boy's Writing</h2>
+        <p class="book-desc">A personal collection of writings made over two and a half years — short essays, book reviews, poetry, and diary entries written between late 2022 and early 2025. An honest look at life, relationships, and the everyday experiences of growing up.</p>
+        <div class="book-footer">
+          <span class="book-price">Rs.&nbsp;1,000</span>
+          <a class="btn-order" href="contact.html?book=memoir">Order Now →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ BOOK 2: FAIRY TALE ══ -->
+    <div class="book-card">
+      <div class="book-cover-wrap">
+        <div class="book-cover-inner">
+          <!-- FRONT: real cover -->
+          <div class="cover-front">
+            <img src="Emperor.jpg" alt="The Emperor's New Suit cover"/>
+            <div class="cover-genre-badge">Fairy Tale</div>
+            <div class="cover-hint">Hover for details</div>
+          </div>
+          <!-- BACK: gradient info -->
+          <div class="cover-back cover-2">
+            <div class="cover-inner">
+              <div class="cover-title">The Emperor's New Suit: With the Time Machine and Robot Child</div>
+              <div class="cover-line"></div>
+              <div class="cover-author-name">Ksitiz P. Subedi</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="book-body">
+        <p class="book-genre-lbl">Fractured Fairy Tale</p>
+        <h2 class="book-title">The Emperor's New Suit: With the Time Machine and Robot Child</h2>
+        <div class="book-blurb">
+          "A hilarious, offbeat twist on a classic children's story… I laughed out loud, and came away impressed by a young author stretching his storytelling skills in new directions."
+          <cite>— Joel Havenstone, author of Choice of Rebels</cite>
+        </div>
+        <p class="book-desc">Two twins journey back in time with an audacious scheme — to build an empire out of thin air. Their ambitions are helped by an enigmatic child whose influence proves transformative. But as their power grows, so do the differences between them, until one brother rules and the other is exiled. And exile only breeds ambition.</p>
+        <div class="book-footer">
+          <span class="book-price">Rs.&nbsp;1,000</span>
+          <a class="btn-order" href="contact.html?book=fairytale">Order Now →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ BOOK 3: FANTASY ══ -->
+    <div class="book-card">
+      <div class="book-cover-wrap">
+        <div class="book-cover-inner">
+          <!-- FRONT: real cover -->
+          <div class="cover-front">
+            <img src="Elnius.jpg" alt="Elnius: The Beginning cover"/>
+            <div class="cover-genre-badge">Fantasy</div>
+            <div class="cover-hint">Hover for details</div>
+          </div>
+          <!-- BACK: gradient info -->
+          <div class="cover-back cover-3">
+            <div class="cover-inner">
+              <div class="cover-title">Elnius: The Beginning</div>
+              <div class="cover-line"></div>
+              <div class="cover-author-name">Ksitiz P. Subedi</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="book-body">
+        <p class="book-genre-lbl">High Fantasy</p>
+        <h2 class="book-title">Elnius: The Beginning</h2>
+        <div class="book-blurb">
+          "A gripping children's fantasy adventure. Full of thrilling action and rich metaphor."
+          <cite>— Joel Havenstone, author of Choice of Rebels</cite>
+        </div>
+        <p class="book-desc">A weak, disregarded elf finds himself at the centre of a desperate conflict when his sister is abducted. Driven by guilt and despair, he'll try anything to find her — making unlikely friends, facing mounting challenges, and learning more about his own strengths and failings than he ever expected. What begins as a search becomes something far greater.</p>
+        <div class="book-footer">
+          <span class="book-price">Rs.&nbsp;1,000</span>
+          <a class="btn-order" href="contact.html?book=fantasy">Order Now →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:2.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
+    <a href="bundles.html" class="btn-primary">View Bundle Deals →</a>
+    <a href="contact.html" class="btn-dark">Contact to Order</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a class="footer-logo" href="index.html">Ksitiz P. Subedi</a>
+  <ul class="footer-links">
+    <li><a href="books.html">Books</a></li>
+    <li><a href="bundles.html">Bundles</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <p class="footer-copy">&copy; 2025 Ksitiz P. Subedi &middot; Kathmandu, Nepal</p>
+</footer>
+
+<script src="nav.js"></script>
+</body>
+</html>

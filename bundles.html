@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bundle Deals — Ksitiz P. Subedi</title>
+  <meta name="description" content="Save on Ksitiz P. Subedi's books with the Dual Pack (any 2 for Rs. 1,800) or the Complete Combo (all 3 for Rs. 2,500). Available in Kathmandu, Nepal."/>
+  <meta property="og:title"       content="Bundle Deals — Ksitiz P. Subedi"/>
+  <meta property="og:description" content="Dual Pack (any 2) for Rs. 1,800 or all 3 books for Rs. 2,500. Save up to Rs. 500."/>
+  <meta property="og:image"       content="Elnius.jpg"/>
+  <meta property="og:type"        content="website"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .bundles-intro { max-width: 580px; margin-bottom: 3rem; }
+    .bundles-intro p { font-size: 0.95rem; color: var(--text-mid); line-height: 1.8; }
+
+    .bundles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; margin-bottom: 3rem; }
+
+    .bundle-card {
+      background: #fff; border: 1px solid var(--border);
+      padding: 2rem; position: relative; cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex; flex-direction: column;
+    }
+    .bundle-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(42,35,25,0.1); }
+    .bundle-card.featured { border: 2px solid var(--gold); }
+    .best-badge {
+      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+      background: var(--gold); color: var(--dark); font-size: 0.65rem;
+      font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 3px 16px; white-space: nowrap;
+    }
+    .bundle-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .bundle-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 0.5rem; }
+    .bundle-includes {
+      font-size: 0.84rem; color: var(--text-mid); line-height: 1.75;
+      margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border);
+      flex-grow: 1;
+    }
+    .bundle-includes li { margin-left: 1.1rem; margin-bottom: 0.2rem; }
+    .bundle-price-row { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 1rem; }
+    .bundle-price { font-size: 1.6rem; font-weight: 700; }
+    .bundle-save { font-size: 0.78rem; color: #2a7a4a; font-weight: 700; }
+    .bundle-vs { font-size: 0.75rem; color: #aaa; text-decoration: line-through; }
+    .btn-bundle {
+      display: block; width: 100%; background: var(--gold); color: var(--dark); border: none;
+      padding: 0.75rem; font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.13em; text-transform: uppercase; cursor: pointer;
+      transition: background 0.2s; text-decoration: none; text-align: center;
+    }
+    .btn-bundle:hover { background: var(--gold-light); }
+
+    .price-table {
+      background: #fff; border: 1px solid var(--border);
+      border-collapse: collapse; width: 100%; margin-top: 1rem;
+    }
+    .price-table th {
+      background: var(--dark); color: var(--gold); padding: 0.75rem 1.2rem;
+      font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+      text-align: left; font-weight: 700;
+    }
+    .price-table td { padding: 0.85rem 1.2rem; font-size: 0.88rem; border-bottom: 1px solid var(--border); }
+    .price-table tr:last-child td { border-bottom: none; }
+    .price-table tr:nth-child(even) td { background: var(--cream2); }
+    .saving { color: #2a7a4a; font-weight: 700; font-size: 0.82rem; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">Ksitiz P. Subedi</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="books.html">Books</a></li>
+    <li><a href="bundles.html" class="active">Bundles</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile" id="nav-mobile">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="books.html">Books</a></li>
+    <li><a href="bundles.html" class="active">Bundles</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <p class="page-hero-label">Save More</p>
+  <h1 class="page-hero-title">Bundle <em>Deals</em></h1>
+  <p class="page-hero-sub">Get more of the collection for less. Two deals — one for pairs, one for the full set.</p>
+</div>
+
+<!-- BUNDLES -->
+<section class="section">
+  <div class="bundles-intro">
+    <div class="avail-badge" style="margin-bottom:1.5rem;">
+      <span class="avail-dot"></span>
+      Available in Kathmandu, Nepal only
+    </div>
+    <p>Individual books are Rs.&nbsp;1,000 each. Bundles let you grab more of the collection at a discount. Pick any two with the Dual Pack, or get all three with the Complete Combo.</p>
+  </div>
+
+  <div class="bundles-grid">
+
+    <!-- DUAL PACK -->
+    <div class="bundle-card">
+      <div class="bundle-icon">📚</div>
+      <h2 class="bundle-name">Dual Pack</h2>
+      <ul class="bundle-includes">
+        <li>Any 2 books of your choice</li>
+        <li>You pick the pair on the order form</li>
+        <li>Save Rs.&nbsp;200</li>
+      </ul>
+      <div class="bundle-price-row">
+        <div>
+          <div class="bundle-price">Rs.&nbsp;1,800</div>
+          <div class="bundle-vs">Rs.&nbsp;2,000 individually</div>
+        </div>
+        <div class="bundle-save">Save 10%</div>
+      </div>
+      <a class="btn-bundle" href="contact.html?bundle=dual">Order Dual Pack →</a>
+    </div>
+
+    <!-- COMPLETE COMBO -->
+    <div class="bundle-card featured">
+      <div class="best-badge">Best Value</div>
+      <div class="bundle-icon">🎁</div>
+      <h2 class="bundle-name">Complete Combo</h2>
+      <ul class="bundle-includes">
+        <li>All 3 books included</li>
+        <li>The full debut collection</li>
+        <li>Save Rs.&nbsp;500</li>
+      </ul>
+      <div class="bundle-price-row">
+        <div>
+          <div class="bundle-price">Rs.&nbsp;2,500</div>
+          <div class="bundle-vs">Rs.&nbsp;3,000 individually</div>
+        </div>
+        <div class="bundle-save">Save 17%</div>
+      </div>
+      <a class="btn-bundle" href="contact.html?bundle=combo">Order Complete Combo →</a>
+    </div>
+
+  </div>
+
+  <!-- PRICING TABLE -->
+  <p class="section-label">At a Glance</p>
+  <h2 class="section-title" style="margin-bottom:1rem;">Pricing Breakdown</h2>
+  <table class="price-table">
+    <thead>
+      <tr>
+        <th>Option</th>
+        <th>What's Included</th>
+        <th>Price (NPR)</th>
+        <th>Saving</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Single Book</td>
+        <td>Any 1 book</td>
+        <td>Rs. 1,000</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Dual Pack</td>
+        <td>Any 2 books</td>
+        <td><strong>Rs. 1,800</strong></td>
+        <td class="saving">Save Rs. 200</td>
+      </tr>
+      <tr>
+        <td><strong>Complete Combo</strong></td>
+        <td>All 3 books</td>
+        <td><strong>Rs. 2,500</strong></td>
+        <td class="saving">Save Rs. 500</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a class="footer-logo" href="index.html">Ksitiz P. Subedi</a>
+  <ul class="footer-links">
+    <li><a href="books.html">Books</a></li>
+    <li><a href="bundles.html">Bundles</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <p class="footer-copy">&copy; 2025 Ksitiz P. Subedi &middot; Kathmandu, Nepal</p>
+</footer>
+
+<script src="nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact — Ksitiz P. Subedi</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* ── LAYOUT ── */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.55fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .contact-info {
+      border-right: 1px solid var(--border);
+      padding-right: 4rem;
+    }
+
+    /* ── LEFT PANEL ── */
+    .author-note {
+      background: #faf7f2;
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1.75rem;
+    }
+    .author-note-label {
+      font-size: 0.7rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem;
+    }
+    .author-note-text { margin: 0 0 0.5rem; font-size: 0.95rem; line-height: 1.9; color: var(--text-mid); }
+    .author-note cite { font-size: 0.8rem; color: var(--gold); font-style: normal; }
+
+    .contact-detail { display: flex; gap: 0.9rem; align-items: flex-start; margin-bottom: 1.1rem; }
+    .contact-detail-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .contact-detail-label { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.2rem; }
+    .contact-detail-value { font-size: 0.9rem; color: var(--dark); }
+    .contact-detail-value a { color: var(--gold); text-decoration: none; }
+    .contact-detail-value a:hover { text-decoration: underline; }
+
+    .avail-box {
+      background: var(--dark); padding: 1.5rem;
+      border-left: 3px solid var(--gold); margin-top: 2rem;
+    }
+    .avail-box p { font-size: 0.86rem; color: var(--muted); line-height: 1.7; margin: 0; }
+    .avail-box strong { color: var(--gold); }
+
+    /* ── FORM SECTION HEADER ── */
+    .form-section-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; margin-bottom: 0.25rem;
+    }
+    .form-section-sub {
+      font-size: 0.85rem; color: var(--text-mid);
+      margin-bottom: 2rem; line-height: 1.6;
+    }
+
+    /* ── ORDER TYPE TABS ── */
+    .order-type-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border);
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+    .order-tab {
+      padding: 0.9rem 0.5rem;
+      text-align: center;
+      cursor: pointer;
+      border: none;
+      background: #fff;
+      border-right: 1px solid var(--border);
+      font-family: 'Lato', sans-serif;
+      transition: background 0.2s, color 0.2s;
+      position: relative;
+    }
+    .order-tab:last-child { border-right: none; }
+    .order-tab-label {
+      display: block;
+      font-size: 0.65rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--text-mid);
+      margin-bottom: 0.3rem;
+    }
+    .order-tab-price {
+      display: block;
+      font-size: 1rem; font-weight: 700;
+      color: var(--dark);
+    }
+    .order-tab-save {
+      display: block;
+      font-size: 0.65rem; color: #2a7a4a;
+      font-weight: 700; letter-spacing: 0.05em;
+      margin-top: 0.2rem; min-height: 1em;
+    }
+    .order-tab.active { background: var(--dark); }
+    .order-tab.active .order-tab-label { color: var(--gold); }
+    .order-tab.active .order-tab-price { color: #e8dcc8; }
+    .order-tab.active .order-tab-save  { color: #7dcf9e; }
+    .order-tab.active::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px; background: var(--gold);
+    }
+
+    /* ── BOOK SELECTOR ── */
+    .book-selector-label {
+      font-size: 0.7rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--dark);
+      font-weight: 700; margin-bottom: 0.8rem;
+    }
+
+    /* ── SINGLE BOOK ROWS ── */
+    .book-pick-row {
+      border: 1px solid var(--border);
+      background: #fff; padding: 1rem 1.25rem;
+      display: flex; align-items: center; gap: 1rem;
+      cursor: pointer; transition: border-color 0.2s;
+      margin-bottom: 0.6rem; position: relative;
+    }
+    .book-pick-row:hover { border-color: var(--gold); }
+    .book-pick-row.selected { border-color: var(--gold); background: #fdf9f2; }
+    .book-pick-radio {
+      width: 18px; height: 18px; flex-shrink: 0;
+      border: 2px solid var(--border); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.2s;
+    }
+    .book-pick-row.selected .book-pick-radio { border-color: var(--gold); }
+    .book-pick-radio-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--gold); display: none;
+    }
+    .book-pick-row.selected .book-pick-radio-dot { display: block; }
+    .book-pick-info { flex: 1; }
+    .book-pick-genre {
+      font-size: 0.65rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 0.1rem;
+    }
+    .book-pick-title { font-family: 'Playfair Display', serif; font-size: 0.95rem; line-height: 1.3; }
+    .book-pick-price { font-size: 0.9rem; font-weight: 700; color: var(--dark); white-space: nowrap; }
+
+    /* ── DUAL PACK CHECKBOXES ── */
+    .book-check-row {
+      border: 1px solid var(--border);
+      background: #fff; padding: 1rem 1.25rem;
+      display: flex; align-items: center; gap: 1rem;
+      cursor: pointer; transition: border-color 0.2s, background 0.2s;
+      margin-bottom: 0.6rem; position: relative;
+    }
+    .book-check-row:hover { border-color: var(--gold); }
+    .book-check-row.selected { border-color: var(--gold); background: #fdf9f2; }
+    .book-check-row.disabled { opacity: 0.45; cursor: not-allowed; }
+    .book-check-row.disabled:not(.selected) { pointer-events: none; }
+    .book-check-box {
+      width: 18px; height: 18px; flex-shrink: 0;
+      border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.2s, background 0.2s;
+      font-size: 11px; color: transparent;
+    }
+    .book-check-row.selected .book-check-box {
+      border-color: var(--gold); background: var(--gold); color: var(--dark);
+    }
+
+    /* ── DUAL PACK NOTE ── */
+    .dual-note {
+      font-size: 0.78rem; color: var(--text-mid);
+      border-left: 2px solid var(--gold); padding-left: 0.75rem;
+      margin-bottom: 1rem; line-height: 1.6;
+    }
+
+    /* ── QUANTITY ── */
+    .qty-row {
+      display: flex; align-items: center;
+      border: 1px solid var(--border); width: fit-content;
+      margin-bottom: 1.75rem; overflow: hidden;
+    }
+    .qty-btn {
+      width: 40px; height: 40px;
+      background: #fff; border: none;
+      font-size: 1.2rem; cursor: pointer;
+      color: var(--dark); font-weight: 700;
+      transition: background 0.15s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .qty-btn:hover { background: var(--cream2); }
+    .qty-input {
+      width: 52px; height: 40px;
+      border: none; border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      text-align: center; font-size: 0.95rem;
+      font-weight: 700; font-family: 'Lato', sans-serif;
+      background: #fff; color: var(--dark);
+      outline: none; appearance: textfield;
+    }
+    .qty-input::-webkit-outer-spin-button,
+    .qty-input::-webkit-inner-spin-button { appearance: none; }
+
+    /* ── ORDER SUMMARY BOX ── */
+    .order-summary {
+      background: var(--dark); padding: 1.5rem;
+      border-left: 3px solid var(--gold);
+      margin-bottom: 1.75rem;
+    }
+    .order-summary-title {
+      font-size: 0.68rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+    }
+    .summary-line {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.85rem; color: var(--muted);
+      padding: 0.35rem 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .summary-total-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 0.9rem; margin-top: 0.3rem;
+      border-top: 1px solid rgba(201,169,110,0.35);
+    }
+    .summary-total-label {
+      font-size: 0.72rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gold);
+    }
+    .summary-total-price { font-size: 1.5rem; font-weight: 700; color: #e8dcc8; }
+    .summary-saving {
+      font-size: 0.72rem; color: #7dcf9e; font-weight: 700;
+      margin-top: 0.25rem; text-align: right;
+    }
+    .summary-empty { font-size: 0.85rem; color: #5a4e3a; font-style: italic; padding: 0.5rem 0; }
+
+    /* ── PAYMENT METHOD ── */
+    .payment-method-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .payment-card {
+      border: 1px solid var(--border);
+      background: #fff;
+      padding: 1.25rem;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+    .payment-card:hover { border-color: var(--gold); }
+    .payment-card.selected { border-color: var(--gold); background: #fdf9f2; }
+    .payment-card.selected::after {
+      content: '✓';
+      position: absolute; top: 10px; right: 12px;
+      font-size: 0.75rem; font-weight: 700;
+      color: var(--gold);
+    }
+    .payment-card-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .payment-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem; margin-bottom: 0.25rem;
+    }
+    .payment-card-desc {
+      font-size: 0.75rem; color: var(--text-mid); line-height: 1.55;
+    }
+
+    /* ── QR CODE PANEL ── */
+    .qr-panel {
+      display: none;
+      background: var(--dark);
+      border-left: 3px solid var(--gold);
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+    .qr-panel.visible { display: block; }
+    .qr-panel-header {
+      display: flex; align-items: center; justify-content: center;
+      padding: 0.9rem 1.5rem;
+      border-bottom: 1px solid rgba(201,169,110,0.2);
+    }
+    .qr-panel-label {
+      font-size: 0.68rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gold);
+    }
+    .qr-panel-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+    }
+    .qr-image-wrap {
+      background: #fff;
+      padding: 1.25rem;
+      display: flex; align-items: center; justify-content: center;
+      width: 100%; max-width: 340px;
+    }
+    .qr-image-wrap img { width: 100%; height: auto; display: block; }
+    .qr-placeholder {
+      width: 100%; aspect-ratio: 1;
+      border: 2px dashed var(--border);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      font-size: 0.72rem; color: var(--text-mid);
+      text-align: center; gap: 0.5rem; padding: 1rem;
+    }
+    .qr-placeholder-icon { font-size: 2rem; opacity: 0.35; }
+    .qr-note {
+      font-size: 0.78rem; color: #7a6a52;
+      padding-top: 1rem; margin-top: 0.25rem;
+      line-height: 1.65; text-align: center;
+    }
+
+    /* ── COD NOTE ── */
+    .cod-note {
+      display: none;
+      border-left: 3px solid var(--gold);
+      background: #faf7f2;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+    }
+    .cod-note.visible { display: block; }
+
+    /* ── PERSONAL DETAILS ── */
+    .form-divider { border: none; border-top: 1px solid var(--border); margin: 1.75rem 0; }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-label {
+      display: block; font-size: 0.72rem; letter-spacing: 0.13em;
+      text-transform: uppercase; color: var(--dark);
+      font-weight: 700; margin-bottom: 0.4rem;
+    }
+    .form-label span { color: #c0392b; margin-left: 2px; }
+    .form-input, .form-select, .form-textarea {
+      width: 100%; padding: 0.8rem 1rem;
+      border: 1px solid var(--border);
+      background: #fff; font-family: 'Lato', sans-serif;
+      font-size: 0.9rem; color: var(--dark); outline: none;
+      transition: border-color 0.2s; appearance: none;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--gold); }
+    .form-textarea { resize: vertical; min-height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .field-hint { font-size: 0.75rem; color: var(--text-mid); margin-top: 0.3rem; line-height: 1.5; }
+
+    /* ── SUBMIT ── */
+    .btn-submit {
+      width: 100%; background: var(--gold); color: var(--dark);
+      border: none; padding: 1rem;
+      font-size: 0.82rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.2s, transform 0.15s;
+      margin-top: 0.25rem;
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+    }
+    .btn-submit:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    /* ── STATUS ── */
+    .form-success {
+      display: none; background: #edfaf3;
+      border: 1px solid #a8dfc0; border-left: 3px solid #2a7a4a;
+      padding: 1.25rem 1.5rem; font-size: 0.9rem;
+      color: #1a5c35; margin-top: 1rem; line-height: 1.7;
+    }
+    .form-error {
+      display: none; background: #fdf0ee;
+      border: 1px solid #f0b8b0; border-left: 3px solid #c0392b;
+      padding: 1.25rem 1.5rem; font-size: 0.9rem;
+      color: #7b1c12; margin-top: 1rem; line-height: 1.7;
+    }
+    .field-error { font-size: 0.75rem; color: #c0392b; margin-top: 0.3rem; display: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+      .contact-info { border-right: none; padding-right: 0; border-bottom: 1px solid var(--border); padding-bottom: 2.5rem; }
+    }
+    @media (max-width: 560px) {
+      .form-row { grid-template-columns: 1fr; }
+      .order-type-tabs { grid-template-columns: 1fr; }
+      .order-tab { border-right: none; border-bottom: 1px solid var(--border); }
+      .order-tab:last-child { border-bottom: none; }
+      .payment-method-grid { grid-template-columns: 1fr; }
+      .qr-panel-body { flex-direction: column; }
+      .qr-image-col { width: 100%; border-right: none; border-bottom: 1px solid rgba(201,169,110,0.2); }
+      .qr-image-col img { max-width: 200px; margin: 0 auto; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">Ksitiz P. Subedi</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="books.html">Books</a></li>
+    <li><a href="bundles.html">Bundles</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile" id="nav-mobile">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="books.html">Books</a></li>
+    <li><a href="bundles.html">Bundles</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <p class="page-hero-label">Get in Touch</p>
+  <h1 class="page-hero-title">Order &amp; <em>Contact</em></h1>
+  <p class="page-hero-sub">Place an order, ask a question, or just say hello — fill in the form below.</p>
+</div>
+
+<!-- MAIN SECTION -->
+<section class="section">
+  <div class="contact-layout">
+
+    <!-- ═══ LEFT COLUMN ═══ -->
+    <div class="contact-info">
+
+      <div class="author-note">
+        <p class="author-note-label">A note from Ksitiz</p>
+        <p class="author-note-text">
+          If you're in Kathmandu and want to pick up a copy — or the full set — fill in the form
+          and I'll be in touch to arrange it. Any questions are welcome too.
+        </p>
+        <cite>— Ksitiz P. Subedi</cite>
+      </div>
+
+      <div class="contact-detail">
+        <div class="contact-detail-icon">🌍</div>
+        <div>
+          <p class="contact-detail-label">Location</p>
+          <p class="contact-detail-value">CG Villas, Kathmandu, Nepal</p>
+        </div>
+      </div>
+
+      <div class="contact-detail">
+        <div class="contact-detail-icon">☎️</div>
+        <div>
+          <p class="contact-detail-label">Phone</p>
+          <p class="contact-detail-value">
+            <a href="tel:+9779851069894">(+977) 9851069894</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="avail-box">
+        <p><strong>📍 Kathmandu, Nepal only</strong><br>
+        Books are currently available in Kathmandu. Once you submit the form, Ksitiz will reach out to confirm your order and arrange delivery or pickup.</p>
+      </div>
+
+    </div><!-- end .contact-info -->
+
+    <!-- ═══ RIGHT COLUMN ═══ -->
+    <div class="contact-form-wrap">
+
+      <h2 class="form-section-heading">Place your order</h2>
+      <p class="form-section-sub">Choose a purchase type, select your book(s), pick a payment method, then fill in your details.</p>
+
+      <!-- ORDER TYPE TABS -->
+      <div class="order-type-tabs" role="tablist" aria-label="Order type">
+        <button class="order-tab active" onclick="setOrderType('single')" role="tab" aria-selected="true" id="tab-single">
+          <span class="order-tab-label">Single Book</span>
+          <span class="order-tab-price">Rs.&nbsp;1,000</span>
+          <span class="order-tab-save">&nbsp;</span>
+        </button>
+        <button class="order-tab" onclick="setOrderType('dual')" role="tab" aria-selected="false" id="tab-dual">
+          <span class="order-tab-label">Dual Pack</span>
+          <span class="order-tab-price">Rs.&nbsp;1,800</span>
+          <span class="order-tab-save">Save Rs.&nbsp;200</span>
+        </button>
+        <button class="order-tab" onclick="setOrderType('combo')" role="tab" aria-selected="false" id="tab-combo">
+          <span class="order-tab-label">Complete Combo</span>
+          <span class="order-tab-price">Rs.&nbsp;2,500</span>
+          <span class="order-tab-save">Save Rs.&nbsp;500</span>
+        </button>
+      </div>
+
+      <!-- BOOK SELECTION: SINGLE -->
+      <div id="panel-single" style="display:none;">
+        <p class="book-selector-label">Choose your book</p>
+
+        <div class="book-pick-row" onclick="selectSingle('memoir')" id="pick-memoir">
+          <div class="book-pick-radio"><div class="book-pick-radio-dot"></div></div>
+          <div class="book-pick-info">
+            <p class="book-pick-genre">Memoir / Personal</p>
+            <p class="book-pick-title">A School Boy's Writing</p>
+          </div>
+          <span class="book-pick-price">Rs.&nbsp;1,000</span>
+        </div>
+
+        <div class="book-pick-row" onclick="selectSingle('fairytale')" id="pick-fairytale">
+          <div class="book-pick-radio"><div class="book-pick-radio-dot"></div></div>
+          <div class="book-pick-info">
+            <p class="book-pick-genre">Fractured Fairy Tale</p>
+            <p class="book-pick-title">The Emperor's New Suit: With the Time Machine and Robot Child</p>
+          </div>
+          <span class="book-pick-price">Rs.&nbsp;1,000</span>
+        </div>
+
+        <div class="book-pick-row" onclick="selectSingle('fantasy')" id="pick-fantasy">
+          <div class="book-pick-radio"><div class="book-pick-radio-dot"></div></div>
+          <div class="book-pick-info">
+            <p class="book-pick-genre">High Fantasy</p>
+            <p class="book-pick-title">Elnius: The Beginning</p>
+          </div>
+          <span class="book-pick-price">Rs.&nbsp;1,000</span>
+        </div>
+
+        <div style="margin-bottom:0.5rem;">
+          <p class="book-selector-label" style="margin-bottom:0.6rem;">Quantity</p>
+          <div class="qty-row">
+            <button class="qty-btn" onclick="changeQtyFor('single',-1)" aria-label="Decrease quantity">−</button>
+            <input class="qty-input" type="number" id="qty-input" value="1" min="1" max="99" aria-label="Quantity" onchange="qtyInputChange('single',this)"/>
+            <button class="qty-btn" onclick="changeQtyFor('single',1)" aria-label="Increase quantity">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOOK SELECTION: DUAL -->
+      <div id="panel-dual" style="display:none;">
+        <p class="dual-note">Select exactly <span id="dual-counter">2</span> books to continue.</p>
+        <p class="book-selector-label">Choose 2 books</p>
+
+        <div class="book-check-row" onclick="toggleDual('memoir')" id="check-memoir">
+          <div class="book-check-box">✓</div>
+          <div class="book-pick-info">
+            <p class="book-pick-genre">Memoir / Personal</p>
+            <p class="book-pick-title">A School Boy's Writing</p>
+          </div>
+        </div>
+
+        <div class="book-check-row" onclick="toggleDual('fairytale')" id="check-fairytale">
+          <div class="book-check-box">✓</div>
+          <div class="book-pick-info">
+            <p class="book-pick-genre">Fractured Fairy Tale</p>
+            <p class="book-pick-title">The Emperor's New Suit: With the Time Machine and Robot Child</p>
+          </div>
+        </div>
+
+        <div class="book-check-row" onclick="toggleDual('fantasy')" id="check-fantasy">
+          <div class="book-check-box">✓</div>
+          <div class="book-pick-info">
+            <p class="book-pick-genre">High Fantasy</p>
+            <p class="book-pick-title">Elnius: The Beginning</p>
+          </div>
+        </div>
+
+        <div style="margin-top:1rem; margin-bottom:0.5rem;">
+          <p class="book-selector-label" style="margin-bottom:0.6rem;">Quantity</p>
+          <div class="qty-row">
+            <button class="qty-btn" onclick="changeQtyFor('dual',-1)" aria-label="Decrease quantity">−</button>
+            <input class="qty-input" type="number" id="qty-input-dual" value="1" min="1" max="99" aria-label="Quantity" onchange="qtyInputChange('dual',this)"/>
+            <button class="qty-btn" onclick="changeQtyFor('dual',1)" aria-label="Increase quantity">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOOK SELECTION: COMBO -->
+      <div id="panel-combo" style="display:none;">
+        <p class="book-selector-label">What's included</p>
+
+        <div style="border: 1px solid var(--border); background: #fdf9f2; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem;">
+          <div style="display:flex; align-items:center; gap:0.75rem; padding:0.5rem 0; border-bottom:1px solid var(--border);">
+            <span style="color:var(--gold);">✦</span>
+            <div>
+              <p style="font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.1rem;">Memoir / Personal</p>
+              <p style="font-family:'Playfair Display',serif;font-size:0.95rem;">A School Boy's Writing</p>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:0.75rem; padding:0.5rem 0; border-bottom:1px solid var(--border);">
+            <span style="color:var(--gold);">✦</span>
+            <div>
+              <p style="font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.1rem;">Fractured Fairy Tale</p>
+              <p style="font-family:'Playfair Display',serif;font-size:0.95rem;">The Emperor's New Suit: With the Time Machine and Robot Child</p>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:0.75rem; padding:0.5rem 0;">
+            <span style="color:var(--gold);">✦</span>
+            <div>
+              <p style="font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.1rem;">High Fantasy</p>
+              <p style="font-family:'Playfair Display',serif;font-size:0.95rem;">Elnius: The Beginning</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-bottom:0.5rem;">
+          <p class="book-selector-label" style="margin-bottom:0.6rem;">Quantity</p>
+          <div class="qty-row">
+            <button class="qty-btn" onclick="changeQtyFor('combo',-1)" aria-label="Decrease quantity">−</button>
+            <input class="qty-input" type="number" id="qty-input-combo" value="1" min="1" max="99" aria-label="Quantity" onchange="qtyInputChange('combo',this)"/>
+            <button class="qty-btn" onclick="changeQtyFor('combo',1)" aria-label="Increase quantity">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ORDER SUMMARY -->
+      <div class="order-summary">
+        <p class="order-summary-title">Order Summary</p>
+        <div id="summary-lines">
+          <p class="summary-empty">No selection yet — choose a book above.</p>
+        </div>
+        <div class="summary-total-row" id="summary-total-row" style="display:none;">
+          <span class="summary-total-label">Total</span>
+          <span class="summary-total-price" id="summary-total-price">Rs.&nbsp;0</span>
+        </div>
+        <p class="summary-saving" id="summary-saving" style="display:none;"></p>
+      </div>
+
+      <!-- PAYMENT METHOD -->
+      <hr class="form-divider"/>
+      <p class="book-selector-label" style="margin-bottom:0.8rem;">Payment Method</p>
+
+      <div class="payment-method-grid">
+
+        <div class="payment-card" id="pay-card-now" onclick="setPayment('now')">
+          <div class="payment-card-icon">📲</div>
+          <p class="payment-card-title">Pay Now</p>
+          <p class="payment-card-desc">Scan the QR code to pay before delivery.</p>
+        </div>
+
+        <div class="payment-card" id="pay-card-cod" onclick="setPayment('cod')">
+          <div class="payment-card-icon">🤝</div>
+          <p class="payment-card-title">Cash on Delivery</p>
+          <p class="payment-card-desc">Pay in cash when your books arrive. Available within Kathmandu only.</p>
+        </div>
+
+      </div>
+
+      <!-- QR CODE PANEL -->
+      <div class="qr-panel" id="qr-panel">
+        <div class="qr-panel-header">
+          <span class="qr-panel-label">Scan to Pay</span>
+        </div>
+        <div class="qr-panel-body">
+          <div class="qr-image-wrap">
+            <!-- ✏️ REPLACE src BELOW WITH YOUR QR CODE IMAGE -->
+            <img src="payment-qr.jpg" alt="Payment QR Code"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"/>
+            <div class="qr-placeholder" style="display:none;">
+              <span class="qr-placeholder-icon">⬛</span>
+              <span>Add your QR code — replace src="payment-qr.jpg"</span>
+            </div>
+          </div>
+          <p class="qr-note">Scan with your banking app and enter the exact total shown above.<br>Paste the transaction ID in the notes box below.</p>
+        </div>
+      </div>
+
+      <!-- COD NOTE -->
+      <div class="cod-note" id="cod-note">
+        <strong>Cash on Delivery — Kathmandu only.</strong><br>
+        You'll pay in cash when the books are delivered to your address. Ksitiz will contact you to confirm a delivery time after you submit the form. Please have the exact amount ready.
+      </div>
+
+      <!-- PERSONAL DETAILS -->
+      <hr class="form-divider"/>
+      <p class="book-selector-label" style="margin-bottom:1.25rem;">Your details</p>
+
+      <form id="contact-form"
+            action="https://formspree.io/f/mojrekbg"
+            method="POST">
+
+        <input type="hidden" name="_subject" value="New order from your book website!"/>
+        <input type="hidden" name="order_type"     id="hidden-order-type" value="Single Book"/>
+        <input type="hidden" name="books_selected" id="hidden-books"      value=""/>
+        <input type="hidden" name="quantity"        id="hidden-qty"        value="1"/>
+        <input type="hidden" name="total_price"     id="hidden-price"      value=""/>
+        <input type="hidden" name="payment_method"  id="hidden-payment"    value=""/>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="fname">First Name <span>*</span></label>
+            <input class="form-input" type="text" id="fname" name="first_name" placeholder="Your first name" required/>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="lname">Last Name</label>
+            <input class="form-input" type="text" id="lname" name="last_name" placeholder="Your last name"/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">Email Address <span>*</span></label>
+          <input class="form-input" type="email" id="email" name="email" placeholder="you@example.com" required/>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="phone">Phone Number</label>
+          <input class="form-input" type="tel" id="phone" name="phone" placeholder="+977 98XXXXXXXX"/>
+          <p class="field-hint">Optional — helpful for faster coordination in Kathmandu.</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="message">Message / Notes</label>
+          <textarea class="form-textarea" id="message" name="message" placeholder="Transaction ID (if paying now), delivery address, or any other notes…"></textarea>
+        </div>
+
+        <p class="field-error" id="err-selection" style="display:none; font-size:0.8rem; color:#c0392b; margin-bottom:0.5rem;">
+          Please complete your book selection before submitting.
+        </p>
+        <p class="field-error" id="err-payment" style="display:none; font-size:0.8rem; color:#c0392b; margin-bottom:1rem;">
+          Please select a payment method before submitting.
+        </p>
+
+        <button class="btn-submit" type="submit" id="submit-btn">
+          <span id="btn-text">Send Order Request</span>
+          <span id="btn-arrow">→</span>
+        </button>
+
+      </form>
+
+      <div class="form-success" id="form-success">
+        <strong>✓ Request sent!</strong><br>
+        Thanks — Ksitiz will get back to you shortly to confirm your order and arrange delivery or pickup.
+      </div>
+      <div class="form-error" id="form-error">
+        <strong>✗ Something went wrong.</strong><br>
+        Please try again, or call <a href="tel:+9779851069894" style="color:#c0392b;">(+977) 9851069894</a> directly.
+      </div>
+
+    </div><!-- end .contact-form-wrap -->
+
+  </div><!-- end .contact-layout -->
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a class="footer-logo" href="index.html">Ksitiz P. Subedi</a>
+  <ul class="footer-links">
+    <li><a href="books.html">Books</a></li>
+    <li><a href="bundles.html">Bundles</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <p class="footer-copy">&copy; 2026 Ksitiz P. Subedi &middot; Kathmandu, Nepal</p>
+</footer>
+
+<script>
+  const BOOKS = {
+    memoir:    { genre: 'Memoir / Personal',    title: "A School Boy's Writing" },
+    fairytale: { genre: 'Fractured Fairy Tale', title: "The Emperor's New Suit" },
+    fantasy:   { genre: 'High Fantasy',          title: "Elnius: The Beginning" }
+  };
+  const PRICES  = { single: 1000, dual: 1800, combo: 2500 };
+  const SAVINGS = { dual: 200, combo: 500 };
+
+  let orderType  = 'single';
+  let singleBook = null;
+  let dualBooks  = new Set();
+  let qtys       = { single: 1, dual: 1, combo: 1 };
+  let payMethod  = null;
+
+  function setOrderType(type) {
+    orderType = type;
+    document.querySelectorAll('.order-tab').forEach(t => {
+      t.classList.remove('active');
+      t.setAttribute('aria-selected', 'false');
+    });
+    document.getElementById('tab-' + type).classList.add('active');
+    document.getElementById('tab-' + type).setAttribute('aria-selected', 'true');
+    ['single','dual','combo'].forEach(t => {
+      document.getElementById('panel-' + t).style.display = t === type ? 'block' : 'none';
+    });
+    updateSummary();
+  }
+
+  function selectSingle(key) {
+    singleBook = key;
+    document.querySelectorAll('#panel-single .book-pick-row').forEach(r => r.classList.remove('selected'));
+    document.getElementById('pick-' + key).classList.add('selected');
+    updateSummary();
+  }
+
+  function toggleDual(key) {
+    if (dualBooks.has(key)) {
+      dualBooks.delete(key);
+      document.getElementById('check-' + key).classList.remove('selected');
+    } else {
+      if (dualBooks.size >= 2) return;
+      dualBooks.add(key);
+      document.getElementById('check-' + key).classList.add('selected');
+    }
+    updateDualDisabled();
+    updateSummary();
+  }
+
+  function updateDualDisabled() {
+    const remaining = 2 - dualBooks.size;
+    const counter = document.getElementById('dual-counter');
+    if (remaining === 2)      counter.textContent = '2';
+    else if (remaining === 1) counter.textContent = '1 more';
+    else                      counter.textContent = '2 — click either to swap';
+    ['memoir','fairytale','fantasy'].forEach(k => {
+      const row = document.getElementById('check-' + k);
+      if (dualBooks.size >= 2 && !dualBooks.has(k)) row.classList.add('disabled');
+      else row.classList.remove('disabled');
+    });
+  }
+
+  function changeQtyFor(panel, delta) {
+    const inputId = panel === 'single' ? 'qty-input' : 'qty-input-' + panel;
+    const input = document.getElementById(inputId);
+    let v = Math.max(1, Math.min(99, (parseInt(input.value) || 1) + delta));
+    input.value = v;
+    qtys[panel] = v;
+    updateSummary();
+  }
+  function qtyInputChange(panel, input) {
+    qtys[panel] = Math.max(1, parseInt(input.value) || 1);
+    input.value = qtys[panel];
+    updateSummary();
+  }
+
+  function setPayment(method) {
+    payMethod = method;
+    document.getElementById('pay-card-now').classList.toggle('selected', method === 'now');
+    document.getElementById('pay-card-cod').classList.toggle('selected', method === 'cod');
+    document.getElementById('qr-panel').classList.toggle('visible', method === 'now');
+    document.getElementById('cod-note').classList.toggle('visible', method === 'cod');
+    document.getElementById('hidden-payment').value = method === 'now' ? 'Pay Now (QR/Digital)' : 'Cash on Delivery';
+    document.getElementById('err-payment').style.display = 'none';
+  }
+
+  function updateSummary() {
+    const linesEl    = document.getElementById('summary-lines');
+    const totalRow   = document.getElementById('summary-total-row');
+    const totalPrice = document.getElementById('summary-total-price');
+    const savingEl   = document.getElementById('summary-saving');
+
+    let lines = [];
+    let total = 0;
+
+    if (orderType === 'single') {
+      if (singleBook) {
+        const q = qtys.single;
+        lines.push(`<div class="summary-line"><span>${BOOKS[singleBook].title}</span><span>Rs.&nbsp;${PRICES.single.toLocaleString()}${q > 1 ? ' × ' + q : ''}</span></div>`);
+        total = PRICES.single * q;
+      }
+    } else if (orderType === 'dual') {
+      dualBooks.forEach(k => {
+        lines.push(`<div class="summary-line"><span>${BOOKS[k].title}</span><span>Rs.&nbsp;1,000</span></div>`);
+      });
+      if (dualBooks.size === 2) {
+        const q = qtys.dual;
+        total = PRICES.dual * q;
+        lines.push(`<div class="summary-line" style="color:#7dcf9e;"><span>Bundle discount</span><span>−Rs.&nbsp;${(200 * q).toLocaleString()}</span></div>`);
+        if (q > 1) lines.push(`<div class="summary-line"><span>Quantity</span><span>× ${q}</span></div>`);
+      }
+    } else if (orderType === 'combo') {
+      ['memoir','fairytale','fantasy'].forEach(k => {
+        lines.push(`<div class="summary-line"><span>${BOOKS[k].title}</span><span>Rs.&nbsp;1,000</span></div>`);
+      });
+      const q = qtys.combo;
+      total = PRICES.combo * q;
+      lines.push(`<div class="summary-line" style="color:#7dcf9e;"><span>Bundle discount</span><span>−Rs.&nbsp;${(500 * q).toLocaleString()}</span></div>`);
+      if (q > 1) lines.push(`<div class="summary-line"><span>Quantity</span><span>× ${q}</span></div>`);
+    }
+
+    if (lines.length === 0) {
+      linesEl.innerHTML = '<p class="summary-empty">No selection yet — choose a book above.</p>';
+      totalRow.style.display = 'none';
+      savingEl.style.display = 'none';
+    } else {
+      linesEl.innerHTML = lines.join('');
+      totalRow.style.display = 'flex';
+      totalPrice.textContent = 'Rs.\u00a0' + total.toLocaleString();
+      if (SAVINGS[orderType]) {
+        savingEl.style.display = 'block';
+        savingEl.textContent = 'You save Rs.\u00a0' + (SAVINGS[orderType] * (qtys[orderType] || 1)).toLocaleString() + ' vs buying individually';
+      } else {
+        savingEl.style.display = 'none';
+      }
+    }
+
+    document.getElementById('hidden-order-type').value = { single:'Single Book', dual:'Dual Pack', combo:'Complete Combo' }[orderType];
+    if (orderType === 'single') {
+      document.getElementById('hidden-books').value = singleBook ? BOOKS[singleBook].title : '';
+      document.getElementById('hidden-qty').value   = qtys.single;
+      document.getElementById('hidden-price').value = singleBook ? 'Rs. ' + (PRICES.single * qtys.single).toLocaleString() : '';
+    } else if (orderType === 'dual') {
+      document.getElementById('hidden-books').value = [...dualBooks].map(k => BOOKS[k].title).join(' + ');
+      document.getElementById('hidden-qty').value   = qtys.dual;
+      document.getElementById('hidden-price').value = dualBooks.size === 2 ? 'Rs. ' + (PRICES.dual * qtys.dual).toLocaleString() : '';
+    } else {
+      document.getElementById('hidden-books').value = 'All 3 books';
+      document.getElementById('hidden-qty').value   = qtys.combo;
+      document.getElementById('hidden-price').value = 'Rs. ' + (PRICES.combo * qtys.combo).toLocaleString();
+    }
+  }
+
+  const form    = document.getElementById('contact-form');
+  const success = document.getElementById('form-success');
+  const error   = document.getElementById('form-error');
+  const btn     = document.getElementById('submit-btn');
+
+  function isSelectionComplete() {
+    if (orderType === 'single') return singleBook !== null;
+    if (orderType === 'dual')   return dualBooks.size === 2;
+    return true;
+  }
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    let valid = true;
+
+    const selErr = document.getElementById('err-selection');
+    if (!isSelectionComplete()) {
+      selErr.style.display = 'block';
+      selErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      valid = false;
+    } else {
+      selErr.style.display = 'none';
+    }
+
+    const payErr = document.getElementById('err-payment');
+    if (!payMethod) {
+      payErr.style.display = 'block';
+      if (valid) payErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      valid = false;
+    } else {
+      payErr.style.display = 'none';
+    }
+
+    if (!valid) return;
+
+    btn.disabled = true;
+    document.getElementById('btn-text').textContent = 'Sending…';
+    document.getElementById('btn-arrow').textContent = '';
+    error.style.display   = 'none';
+    success.style.display = 'none';
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (response.ok) {
+        form.style.display    = 'none';
+        success.style.display = 'block';
+      } else {
+        throw new Error('Server error');
+      }
+    } catch {
+      error.style.display = 'block';
+      btn.disabled = false;
+      document.getElementById('btn-text').textContent = 'Send Order Request';
+      document.getElementById('btn-arrow').textContent = '→';
+    }
+  });
+
+  setOrderType('single');
+</script>
+<script src="nav.js"></script>
+</body>
+</html>
